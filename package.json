@@ -1,0 +1,27 @@
+{
+  "name": "hip-hop-gya-contract",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "@truffle/hdwallet-provider": "^2.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joe20182/hip-hop-gya-contract.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joe20182/hip-hop-gya-contract/issues"
+  },
+  "homepage": "https://github.com/joe20182/hip-hop-gya-contract#readme"
+}
