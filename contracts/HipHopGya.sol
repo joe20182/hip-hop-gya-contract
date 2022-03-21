@@ -68,6 +68,7 @@ contract HipHopGya is ERC721, Pausable, Ownable {
         _safeMint(to, tokenId);
     }
 
+    // ERC721 _mint()會呼叫_beforeTokenTransfer()，這邊override加上了whenNotPaused因此若pause則無法safeMint()
     function _beforeTokenTransfer(
         address from,
         address to,
