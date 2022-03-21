@@ -15,7 +15,11 @@ contract HipHopGya is ERC721, Pausable, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIdCounter;
 
-    constructor() ERC721("HipHopGya", "HHG") {}
+    constructor() ERC721("HipHopGya", "HHG") {
+        // baseURI若為空則無法獲取tokenURI
+        // setBaseURI("");
+        _tokenIdCounter.increment();
+    }
 
     // constructor() ERC721PresetMinterPauserAutoId("HipHopGya", "HHG", "") {}
 
