@@ -31,6 +31,11 @@ contract HipHopGya is ERC721, Pausable, Ownable {
         baseURI = _newBaseURI;
     }
 
+    // ERC721.sol內的tokenURI()會去獲取_baseURI()
+    function _baseURI() internal view virtual override returns (string memory) {
+        return baseURI;
+    }
+
     function tokenURI(uint256 tokenId)
         public
         view
@@ -38,6 +43,11 @@ contract HipHopGya is ERC721, Pausable, Ownable {
         override
         returns (string memory)
     {
+        // 以下為ERC721內的tokenURI()內容
+        // require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
+        // string memory baseURI = _baseURI();
+        // return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, tokenId.toString())) : "";
+
         return string(abi.encodePacked(super.tokenURI(tokenId), ".json"));
     }
 
