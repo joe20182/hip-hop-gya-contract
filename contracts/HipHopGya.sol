@@ -8,9 +8,14 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract HipHopGya is ERC721, Pausable, Ownable {
+    // URI需要/結尾以銜接檔名
     string public baseURI;
-    uint256 public mintPrice = 0.01 ether;
+    string public unrevealedURI;
+
+    bool public revealed = false;
+
     uint256 public MAX_SUPPLY = 20;
+    uint256 public mintPrice = 0.01 ether;
 
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIdCounter;
@@ -35,6 +40,13 @@ contract HipHopGya is ERC721, Pausable, Ownable {
         baseURI = _newBaseURI;
     }
 
+    function setUnrevealedURI(string memory _newUnrevealedURI)
+        public
+        onlyOwner
+    {
+        unrevealedURI = _newUnrevealedURI;
+    }
+
     // ERC721.sol內的tokenURI()會去獲取_baseURI()
     function _baseURI() internal view virtual override returns (string memory) {
         return baseURI;
@@ -51,6 +63,10 @@ contract HipHopGya is ERC721, Pausable, Ownable {
         // require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
         // string memory baseURI = _baseURI();
         // return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, tokenId.toString())) : "";
+
+        if (!revealed) {
+            return string(abi.encodePacked(unrevealedURI, "hidden.json"));
+        }
 
         return string(abi.encodePacked(super.tokenURI(tokenId), ".json"));
     }
@@ -80,5 +96,9 @@ contract HipHopGya is ERC721, Pausable, Ownable {
     // Function to return the total supply
     function totalSupply() public view returns (uint256) {
         return _tokenIdCounter.current() - 1;
+    }
+
+    function setRevealed(bool flag) public onlyOwner {
+        revealed = flag;
     }
 }
