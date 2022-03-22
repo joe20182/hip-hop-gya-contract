@@ -10,12 +10,13 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 contract HipHopGya is ERC721, Pausable, Ownable {
     // URI需要/結尾以銜接檔名
     string public baseURI;
-    string public unrevealedURI;
+    string public unrevealedURI =
+        "ipfs://QmQskJtsyFp6mczsHmSyBPyCrhNJKvY5qpWghM7u4bh3PJ/";
 
     bool public revealed = false;
 
     uint256 public MAX_SUPPLY = 20;
-    uint256 public mintPrice = 0.01 ether;
+    uint256 public MINT_PRICE = 0.01 ether;
 
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIdCounter;
@@ -78,7 +79,7 @@ contract HipHopGya is ERC721, Pausable, Ownable {
 
     function safeMint(address to) public payable {
         require(totalSupply() < MAX_SUPPLY, "Can't mint more");
-        require(msg.value >= mintPrice, "Not enough ether sent");
+        require(msg.value >= MINT_PRICE, "Not enough ether sent");
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
